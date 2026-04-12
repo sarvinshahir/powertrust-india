@@ -1,0 +1,13 @@
+pdfplumber
+langchain
+langchain-community
+langchain-groq
+langchain-core
+chromadb
+sentence-transformers
+groq
+streamlit
+plotly
+pandas
+python-dotenv
+tqdm
