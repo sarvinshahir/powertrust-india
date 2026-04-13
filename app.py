@@ -77,12 +77,9 @@ collection = load_collection()
 llm = load_llm()
 
 # Header
-st.markdown("""
-<div style="background: linear-gradient(90deg, #FF6B35, #F7C59F); padding: 20px; border-radius: 10px; margin-bottom: 20px;">
-    <h1 style="color: white; margin: 0;">☀️ PowerTrust — India Solar Intelligence</h1>
-    <p style="color: white; margin: 5px 0 0 0;">Open-data intelligence for distributed solar development in India</p>
-</div>
-""", unsafe_allow_html=True)
+st.title("☀️ PowerTrust — India Solar Intelligence")
+st.caption("Open-data intelligence for distributed solar development in India")
+st.divider()
 
 # Tabs
 tab1, tab2, tab3, tab4 = st.tabs(["📊 Dashboard", "💬 Chat", "⚡ Risk Index", "📋 Data Audit"])
@@ -92,10 +89,10 @@ with tab1:
     st.subheader("India Solar Market — Key Metrics")
     
     col1, col2, col3, col4 = st.columns(4)
-    col1.metric("Solar Added FY26", "45 GW", "Record year")
-    col2.metric("Solar Target 2030", "292 GW", "NEP 2022-32")
-    col3.metric("Rooftop Installs", "16 Lakh", "PM Surya Ghar")
-    col4.metric("Latest Auction", "₹2.5/kWh", "SECI 2025")
+    col1.markdown("### 45 GW\n**Solar Added FY26**\n\n*Record year*")
+    col2.markdown("### 292 GW\n**Solar Target 2030**\n\n*NEP 2022-32*")
+    col3.markdown("### 16 Lakh\n**Rooftop Installs**\n\n*PM Surya Ghar*")
+    col4.markdown("### ₹2.5/kWh\n**Latest Auction**\n\n*SECI 2025*")
 
     st.markdown("---")
 
@@ -179,17 +176,17 @@ with tab2:
     if "chat_history" not in st.session_state:
         st.session_state.chat_history = []
 
-    st.markdown("**Quick queries:**")
-    col1, col2, col3, col4 = st.columns(4)
-    q1 = col1.button("CAPEX rooftop solar?")
-    q2 = col2.button("Net metering policy?")
-    q3 = col3.button("PM Surya Ghar subsidy?")
-    q4 = col4.button("What data is missing?")
-
-    if q1: st.session_state.quick_q = "What is the benchmark CAPEX for rooftop solar installations in India?"
-    if q2: st.session_state.quick_q = "What are the net metering regulations for rooftop solar in India?"
-    if q3: st.session_state.quick_q = "What subsidies are available under PM Surya Ghar scheme?"
-    if q4: st.session_state.quick_q = "What data is missing that would most affect our solar CAPEX estimate?"
+    quick = st.selectbox("Quick queries", [
+        "-- select --",
+        "What is the benchmark CAPEX for rooftop solar installations in India?",
+        "What are the net metering regulations for rooftop solar in India?",
+        "What subsidies are available under PM Surya Ghar scheme?",
+        "What data is missing that would most affect our solar CAPEX estimate?",
+        "How do grid interconnection wait times vary across Indian states?",
+        "What are the RPO targets for Maharashtra and Karnataka?"
+    ])
+    if quick != "-- select --":
+        st.session_state.quick_q = quick
 
     for msg in st.session_state.chat_history:
         with st.chat_message("user"):
@@ -198,7 +195,14 @@ with tab2:
             st.write(msg["answer"])
             st.caption(f"📄 Sources: {', '.join(msg['sources'][:3])}")
 
-    query = st.chat_input("Ask about India solar — CAPEX, grid, policy, approvals...")
+    col_input, col_btn = st.columns([5,1])
+    with col_input:
+        query = st.text_input("Ask about India solar — CAPEX, grid, policy, approvals...", key="chat_input")
+    with col_btn:
+        st.write("")
+        send = st.button("Send")
+    if not send:
+        query = None
 
     if hasattr(st.session_state, "quick_q"):
         query = st.session_state.quick_q
@@ -298,7 +302,7 @@ with tab4:
                     "EIA notification", "Parliamentary committee reports",
                     "Policy announcements, capacity data"]
     })
-    st.dataframe(sourced, use_container_width=True)
+    st.write(sourced.to_markdown(index=False))
 
     st.subheader("Critical Data Gaps")
     gaps = pd.DataFrame({
@@ -319,7 +323,7 @@ with tab4:
                   "Dimension 5 relies on indirect sources",
                   "CAPEX estimates may be 15-20% outdated"]
     })
-    st.dataframe(gaps, use_container_width=True)
+    st.write(gaps.to_markdown(index=False))
 
     st.subheader("Model Update Methodology")
     st.markdown("""
