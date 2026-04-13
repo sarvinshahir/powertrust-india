@@ -12,13 +12,13 @@ import re
 st.set_page_config(page_title="PowerTrust India Solar Intelligence", page_icon="☀️", layout="wide")
 
 CHROMA_DIR = "/Users/sarvinshahir/Desktop/PowerTrust-India/data/chroma_db_local"
-GROQ_API_KEY = "groq_api_key!!"
+GROQ_API_KEY = "groq_key"
 
 @st.cache_resource
 def load_collection():
     ef = embedding_functions.SentenceTransformerEmbeddingFunction(model_name="all-MiniLM-L6-v2")
     client = chromadb.PersistentClient(path=CHROMA_DIR)
-    return client.get_or_create_collection(name="india_solar_v2", embedding_function=ef)
+    return client.get_collection(name="india_solar_v2", embedding_function=ef)
 
 @st.cache_resource
 def load_llm():
