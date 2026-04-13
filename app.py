@@ -10,7 +10,7 @@ import pandas as pd
 st.set_page_config(page_title="PowerTrust India Solar Intelligence", page_icon="☀️", layout="wide")
 
 CHROMA_DIR = "/Users/sarvinshahir/Desktop/PowerTrust-India/data/chroma_db_v2"
-GROQ_API_KEY = "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"
+GROQ_API_KEY = "your_groq_api_key_here"
 
 @st.cache_resource
 def load_collection():
