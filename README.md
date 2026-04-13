@@ -21,15 +21,25 @@ A conversational intelligence platform that helps solar developers and investors
 
 ## 🏗️ Architecture
 61 Government PDFs + Image Data
+
 ↓
+
 PDF Parser (pdfplumber) + Smart Chunking
+
 ↓
+
 ChromaDB Vector Store (3,414 chunks, all-MiniLM-L6-v2)
+
 ↓
+
 Metadata-Filtered RAG Retrieval
+
 ↓
+
 Groq LLM (llama-3.3-70b-versatile)
+
 ↓
+
 Streamlit Dashboard (4 tabs)
 
 ---
