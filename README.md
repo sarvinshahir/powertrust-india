@@ -1,4 +1,4 @@
-markdown# ☀️ PowerTrust — India Solar Intelligence
+# ☀️ PowerTrust — India Solar Intelligence
 
 > Open-data intelligence system for distributed solar development in India  
 > Built for IE 7374 Generative AI Hackathon | Northeastern University | Spring 2026  
