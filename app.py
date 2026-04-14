@@ -12,7 +12,7 @@ import re
 st.set_page_config(page_title="PowerTrust India Solar Intelligence", page_icon="☀️", layout="wide")
 
 CHROMA_DIR = "/Users/sarvinshahir/Desktop/PowerTrust-India/data/chroma_db_local"
-GROQ_API_KEY = "groq_key"
+GROQ_API_KEY = "your_groq_key"
 
 @st.cache_resource
 def load_collection():
